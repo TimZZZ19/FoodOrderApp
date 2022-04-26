@@ -1,6 +1,6 @@
 import classes from "./CartItem.module.css";
 
-const CartItem = ({ name, price, amount, onAdd, onRemove }) => {
+const CartItem = ({ name, price, amount, addCartItem, removeCartItem }) => {
   const styledPrice = `$${price.toFixed(2)}`;
 
   return (
@@ -13,8 +13,8 @@ const CartItem = ({ name, price, amount, onAdd, onRemove }) => {
         </div>
       </div>
       <div className={classes.actions}>
-        <button onClick={onRemove}>−</button>
-        <button onClick={onAdd}>+</button>
+        <button onClick={removeCartItem}>−</button>
+        <button onClick={addCartItem}>+</button>
       </div>
     </li>
   );

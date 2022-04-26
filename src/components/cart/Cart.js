@@ -14,7 +14,8 @@ export default function Cart({ hideCart }) {
     console.log("remove");
   };
   const addCartItem = (item) => {
-    console.log("add");
+    console.log(item);
+    cartContext.addItem({ ...item, amount: 1 });
   };
 
   const cartItems = (
@@ -23,11 +24,8 @@ export default function Cart({ hideCart }) {
         <CartItem
           {...item}
           key={item.id}
-          // name={item.name}
-          // price={item.price}
-          // amount={item.amount}
-          onAdd={addCartItem.bind(null, item)}
-          onRemove={removeCartItem.bind(null, item.id)}
+          addCartItem={addCartItem.bind(null, item)}
+          removeCartItem={removeCartItem.bind(null, item.id)}
         />
       ))}
     </ul>
