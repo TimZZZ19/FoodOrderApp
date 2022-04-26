@@ -4,12 +4,12 @@ import mealsImage from "../../assets/meals.jpg";
 
 import HeaderCartButton from "./HeaderCartButton";
 
-export default function Header() {
+export default function Header({ showCart }) {
   return (
     <>
       <header className={classes.header}>
         <h1>ReactMeals</h1>
-        <HeaderCartButton />
+        <HeaderCartButton showCart={showCart} />
       </header>
       <div className={classes["main-image"]}>
         <img src={mealsImage} alt="A table of declious food" />
