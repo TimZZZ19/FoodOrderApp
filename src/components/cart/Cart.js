@@ -10,12 +10,12 @@ export default function Cart({ hideCart }) {
   const totalAmount = `$${cartContext.totalAmount.toFixed(2)}`;
   const hasItems = cartContext.items.length > 0;
 
-  const removeCartItem = (id) => {
-    console.log("remove");
-  };
   const addCartItem = (item) => {
-    console.log(item);
     cartContext.addItem({ ...item, amount: 1 });
+  };
+
+  const removeCartItem = (id) => {
+    cartContext.removeItem(id);
   };
 
   const cartItems = (
