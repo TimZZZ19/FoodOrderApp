@@ -1,11 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import classes from "./Cart.module.css";
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
 import CartContext from "../../store/CartContenxt";
+import Checkout from "./Checkout";
 
 export default function Cart({ hideCart }) {
   const cartContext = useContext(CartContext);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   const totalAmount = `$${cartContext.totalAmount.toFixed(2)}`;
   const hasItems = cartContext.items.length > 0;
@@ -31,6 +33,30 @@ export default function Cart({ hideCart }) {
     </ul>
   );
 
+  const showCheckoutForm = () => {
+    setShowCheckout(true);
+  };
+
+  const modalAction = (
+    <div className={classes.actions}>
+      <button className={classes["button--alt"]} onClick={hideCart}>
+        Close
+      </button>
+      {hasItems && (
+        <button className={classes["button"]} onClick={showCheckoutForm}>
+          Order
+        </button>
+      )}
+    </div>
+  );
+
+  const submitOrderHandler = (userData) => {
+    fetch("https://foodapp-15506-default-rtdb.firebaseio.com/order.json", {
+      method: "POST",
+      body: JSON.stringify({ user: userData, orderedItems: cartContext.items }),
+    });
+  };
+
   return (
     <Modal hideCart={hideCart}>
       {cartItems}
@@ -38,12 +64,10 @@ export default function Cart({ hideCart }) {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      <div className={classes.actions}>
-        <button className={classes["button--alt"]} onClick={hideCart}>
-          Close
-        </button>
-        {hasItems && <button className={classes["button"]}>Order</button>}
-      </div>
+      {showCheckout && (
+        <Checkout onSubmit={submitOrderHandler} onCancel={hideCart} />
+      )}
+      {!showCheckout && modalAction}
     </Modal>
   );
 }

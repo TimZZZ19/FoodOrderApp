@@ -7,6 +7,8 @@ const defaultCartState = {
 };
 
 const cartReducer = (state, action) => {
+  console.log("run");
+
   if (action.type === "ADD") {
     // We always want to update the total price amount.
     const updatedTotalAmount =

@@ -24,9 +24,7 @@ export default function MealItem({ id, name, description, price }) {
         <div className={classes.description}>{description}</div>
         <div className={classes.price}>{styledPrice}</div>
       </div>
-      <div>
-        <MealItemForm id={id} addItemToCart={addItemToCart} />
-      </div>
+      <MealItemForm id={id} addItemToCart={addItemToCart} />
     </li>
   );
 }
